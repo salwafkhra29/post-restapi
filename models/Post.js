@@ -3,22 +3,22 @@ const mongoose = require('mongoose')
 const postSchema = mongoose.Schema({
     content: {
         type: String,
-        require: true
+        required: true
     },
     user_id: {
-        type: String,
-        require: true
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     },
-    create_date: {
+    created_date: {
         type: Date,
         default: Date.now
     },
-    Modified_date: {
+    modified_date: {
         type: Date,
         default: null
     }
-},{
-    versionKey:false
+}, {
+    versionKey: false
 })
-
-module.exports = mongoose.model('Post', postSchema)
+module.exports = mongoose.model('Post', postSchema, 'post')

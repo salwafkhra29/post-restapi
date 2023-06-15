@@ -32,8 +32,8 @@ router.get('/', async (req, res) => {
             $set: {
                 id: '$_id',
                 username: { $arrayElemAt: ['$userData.username', 0]},
-                created_date: { $dateToString: { format: '%d-&m-%Y %H:%M:%S', date: '$created_date', timezone: '+07:00'}},
-                modified_date: { $dateToString: { format: '%d-&m-%Y %H:%M:%S', date: '$created_date', timezone: '+07:00'}}
+                created_date: { $dateToString: { format: '%d-%m-%Y %H:%M:%S', date: '$created_date', timezone: '+07:00'}},
+                modified_date: { $dateToString: { format: '%d-%m-%Y %H:%M:%S', date: '$modified_date', timezone: '+07:00'}}
             }
            },
            {
@@ -78,16 +78,16 @@ router.put('/', async (req, res) => {
 
     try {
         const post = await Post.updateOne({
-            _id: data.id
+            _id: data.id,
         }, data)
         
         if (post.matchedCount > 0){
-            res.status(200).json(result(0, 'Update post success'))
+            res.status(200).json(result(1, 'Update post success'))
         } else {
-            res.status(200).json(result(0, 'Update post failed'))
+            res.status(200).json(result(1, 'Update post failed'))
         }
     }catch (error){
-        res.status(500).json(result(0, error_message))
+        res.status(500).json(result(0, error.message))
     }
 })
 
@@ -98,13 +98,13 @@ router.delete('/:id', async (req, res) => {
         })
 
         if (post.deletedCount > 0 ){
-            res.status(200).json(result(0, 'Delete post success'))
+            res.status(200).json(result(1, 'Delete post success'))
         }else{
-            res.status(200).json(result(0, 'Update post failed'))
+            res.status(200).json(result(0, 'Delete post failed'))
         }
     }catch (error){
         res.status(500).json(result(0, error_message))
     }
 })
 
-module.exports = router
+module.exports = router
