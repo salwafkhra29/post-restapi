@@ -1,6 +1,6 @@
 {
     "version": 2,
-    "name": "post-restapi",
+    "name": "tulisaja-restapi",
     "builds": [{
         "src": "app.js",
         "use": "@vercel/node"
